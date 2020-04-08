@@ -1,0 +1,39 @@
+{% extends "my_app/base.html" %}
+
+{% block title %}Scrape Reviews{% endblock %}
+
+{% block content %}
+    <div class="container pt-3">
+        {% if scrape %}
+
+            <form name="formsubmit" action="{% url 'my_app:name' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name='link' value="{{ url }}">
+                <input type="hidden" name='product' value="{{ name_of_product }}">
+                <input type="hidden" name='reviews' value={{ review }}>
+                <input type="hidden" name='rating' value="{{ rating }}">
+            </form>
+            <h3>Scraping Reviews for :</h3>
+            <h6><code>{{ url }}</code></h6>
+            <h6>{{ name_of_product }}</h6>
+            <h5>This may take a while...</h5>
+            <div style="position:fixed; top:50%; left:50%" class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class='progress-wrapper'>
+                <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+            </div>
+            <div id="celery-result"></div>
+            <div id="progress-bar-message">Waiting for progress to start...</div>
+        {% else %}
+            <h3>Scraping of Reviews is done for :</h3>
+            <h6><code>{{ url }}</code></h6>
+            <h6>{{ name_of_product }}</h6>
+        {% endif %}
+
+
+    </div>
+{% endblock %}

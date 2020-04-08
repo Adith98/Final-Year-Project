@@ -1,0 +1,74 @@
+{% extends "my_app/base.html" %}
+
+{% block title %}My amazing blog{% endblock %}
+
+{% block content %}
+    <div class="container-fluid bg-success box-below-header text-center">
+        <div class="title-caption h3">Say no to getting fooled by fake reviews.</div>
+        <div class="enter-link-box-form col-lg-5">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <!--
+                    <div class="form-group">
+                        <input class="form-control" name="link" type="text" placeholder="Enter the product's link">
+                    </div>
+                   -->
+                {{ form.non_field_errors }}
+                <div class="error pb-2">
+                    {% if form.link.errors %}
+                        {% for error in form.link.errors %}
+                            <div class="p text-bold">{{ error|escape }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.link }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Scrapify It!</button>
+
+            </form>
+        </div>
+        <div class="title-lower-caption h5">Scrapify makes sure your online shopping experience is non-deceptive and
+            trustworthy.
+        </div>
+    </div>
+
+    {% if url_info %}
+        <div id="pop-up-window" class="pop-up-url-window d-flex align-items-center">
+            <div class="url-information-window w-75">
+                <div class="card-header">
+                    <b>Product Link Scraped Window</b>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-muted">Entered Url</p>
+                    <p class="card-text mt-2 mb-3">{{ url_info.url }}</p>
+                    <hr>
+                    <p class="card-text text-muted">Additional Information</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item transparent">Name of the product: <b>{{  url_info.name_of_product }}</b></li>
+                        <li class="list-group-item transparent">Total Reviews: <b>{{ url_info.review }} Reviews</b></li>
+                        <li class="list-group-item transparent">Overall Rating: <b>{{  url_info.rating }} out of 5</b></li>
+                    </ul>
+                    <form action="{% url 'my_app:save-to-database' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name='link' value="{{  url_info.url }}">
+                        <input type="hidden" name='product' value="{{  url_info.name_of_product }}">
+                        <input type="hidden" name='reviews' value={{  url_info.review }}>
+                        <input type="hidden" name='rating' value="{{  url_info.rating }}">
+                        <button type="submit" class="btn btn-primary mt-2">Get me the Rating</button>
+                    </form>
+                </div>
+                <div class="close-btn">
+                    <a href = "{% url 'my_app:index' %}" class="btn btn-link text-danger"><b>X</b></a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% for link in links %}
+        <h5> {{ link.link }}</h5>
+        <p>{{ link.date }}</p>
+    {% endfor %}
+{% endblock %}
