@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="eec9fd95-79bf-4196-8305-74a9b94b2ca7" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" module-name="Django" sdk-home="C:\Users\shetty\Anaconda3\envs\djangoenv\python.exe">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+    <option name="mySdkHome" value="C:\Users\shetty\Anaconda3\envs\djangoenv\python.exe" />
+    <option name="myModuleName" value="Django" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Web-Application-Django" />
+  </component>
+  <component name="ProjectId" id="1ZZKd15JhHxsW8z4VbD3LbpzKqt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SAKEC/BE project/BE_Project" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="Django" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="Django" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\shetty\Desktop\adith\Practice\Django\scrapify\my_app" />
+      <recent name="C:\Users\shetty\Desktop\adith\Practice\Django\scrapify\my_app\static\my_app\images" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eec9fd95-79bf-4196-8305-74a9b94b2ca7" name="Default Changelist" comment="" />
+      <created>1585041261821</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585041261821</updated>
+      <workItem from="1585041300119" duration="1063000" />
+      <workItem from="1585056207628" duration="3042000" />
+      <workItem from="1585118767915" duration="8872000" />
+      <workItem from="1585136987781" duration="17492000" />
+      <workItem from="1585206398640" duration="25536000" />
+      <workItem from="1585293939028" duration="630000" />
+      <workItem from="1585466233882" duration="21040000" />
+      <workItem from="1586019233653" duration="8645000" />
+      <workItem from="1586081026025" duration="3914000" />
+      <workItem from="1586322053483" duration="19597000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="419" y="148" key="EnvironmentVariablesDialog" timestamp="1585119828579">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="419" y="148" key="EnvironmentVariablesDialog/0.0.1366.768@0.0.1366.768" timestamp="1585119828579" />
+    <state x="463" y="138" key="FileChooserDialogImpl" timestamp="1586327435622">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1586327435622" />
+    <state x="140" y="0" key="SettingsEditor" timestamp="1585120338554">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="140" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1585120338554" />
+    <state x="390" y="211" key="com.intellij.ide.util.TipDialog" timestamp="1586081040345">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="390" y="211" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1586081040345" />
+    <state x="0" y="0" width="736" height="768" key="find.popup" timestamp="1585152746537">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="0" y="0" width="736" height="768" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1585152746537" />
+    <state x="324" y="109" width="700" height="530" key="recent.locations.popup" timestamp="1585147468921">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="324" y="109" width="700" height="530" key="recent.locations.popup/0.0.1366.768@0.0.1366.768" timestamp="1585147468921" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1585119342008">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1585119342008" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../SAKEC/BE project/BE_Project/frontui.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
