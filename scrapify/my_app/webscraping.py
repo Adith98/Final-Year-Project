@@ -49,7 +49,7 @@ class WebScraping:
         else:
             pno = int(page)
         product_name = product_name[0:15] + str(datetime.datetime.now().microsecond)
-        path1 = "C:\\Users\\shetty\\Desktop\\adith\\SAKEC\\BE project\\BE_Project\\product comments\\R_" + product_name + ".xlsx"
+        path1 = "static\\my_app\\product_reviews\\R_" + product_name + ".xlsx"
         if os.path.exists(path1):
             return 'Exists'
         else:
@@ -64,16 +64,13 @@ class WebScraping:
                 page_soup = soup(page_html, "html.parser")
 
                 containers = page_soup.findAll("div", {"class", "qwjRop _2675cp"})
-                print("Ab YAHA HO")
                 if not containers:
                     containers = page_soup.findAll("div", {"class", "col _390CkK _1gY8H-"})
-                    print("YAHA AAYE AAP")
 
                 for row in containers:
                     rating = row.find_all("div", {"class", "hGSR34"})[0].text
                     review = row.findAll("div", {"class", "_2t8wE0"})
                     if not review:
-                        print("You are here")
                         review_title = row.find_all("p", {"class", "_2xg6Ul"})[0].text
                         review = row.findAll("div", {"class", "qwjRop"})[0].text
 
@@ -81,7 +78,6 @@ class WebScraping:
                         product_info["Review"].append(review.rstrip('READ MORE'))
                         product_info["Rating"].append(rating)
                     else:
-                        print("You are here bro")
                         review = review[0].text
                         product_info["Review_title"].append(" ")
                         product_info["Review"].append(review.rstrip('READ MORE'))
@@ -89,6 +85,6 @@ class WebScraping:
 
             df = DataFrame(product_info, columns=['Review_title', 'Review', 'Rating'])
             df.to_excel(
-                r'C:\Users\shetty\Desktop\adith\SAKEC\BE project\BE_Project\product comments\R_' + product_name + '.xlsx',
+                r'C:\Users\shetty\Desktop\adith\Practice\Django\scrapify\my_app\static\my_app\product_reviews\R_' + product_name + '.xlsx',
                 index=None, header=True)
-            return 'Succcess'
+            return path1

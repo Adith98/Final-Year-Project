@@ -10,6 +10,7 @@ class Link(models.Model):
     review = models.IntegerField()
     rating = models.FloatField()
     date = models.DateTimeField(auto_now=True)
+    path = models.CharField(max_length=10000)
 
     def __str__(self):
         return self.product_name

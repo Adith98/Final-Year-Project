@@ -26,12 +26,13 @@
             <div class='progress-wrapper'>
                 <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
             </div>
-            <div id="celery-result"></div>
-            <div id="progress-bar-message">Waiting for progress to start...</div>
+
+
         {% else %}
             <h3>Scraping of Reviews is done for :</h3>
             <h6><code>{{ url }}</code></h6>
             <h6>{{ name_of_product }}</h6>
+            <a href="#" class="btn btn-large btn-primary">Authenticate the product</a>
         {% endif %}
 
 

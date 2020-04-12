@@ -36,8 +36,8 @@ class ScrapeView(generic.TemplateView):
         if request.method == 'POST':
             url = request.POST.get('link')
             product_name = request.POST['product']
-            success = ws().extract_reviews_from_url(url, product_name)
-            print(success)
+            path = ws().extract_reviews_from_url(url, product_name)
+            print(path)
             args = {'url': url, 'name_of_product': product_name}
             return render(request, self.template_name, args)
 
