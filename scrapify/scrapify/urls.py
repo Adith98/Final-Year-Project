@@ -20,6 +20,4 @@ from django.urls import path, include,re_path
 urlpatterns = [
     path('my_app/', include('my_app.urls')),
     path('admin/', admin.site.urls),
-    path('celery-progress/', include('celery_progress.urls')),
-
 ]
