@@ -50,14 +50,7 @@
                         <li class="list-group-item transparent">Total Reviews: <b>{{ url_info.review }} Reviews</b></li>
                         <li class="list-group-item transparent">Overall Rating: <b>{{  url_info.rating }} out of 5</b></li>
                     </ul>
-                    <form action="{% url 'my_app:save-to-database' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name='link' value="{{  url_info.url }}">
-                        <input type="hidden" name='product' value="{{  url_info.name_of_product }}">
-                        <input type="hidden" name='reviews' value={{  url_info.review }}>
-                        <input type="hidden" name='rating' value="{{  url_info.rating }}">
-                        <button type="submit" class="btn btn-primary mt-2">Get me the Rating</button>
-                    </form>
+                    <a href="{% url 'my_app:name' %}" class="btn btn-primary mt-2">Get me the Rating</a>
                 </div>
                 <div class="close-btn">
                     <a href = "{% url 'my_app:index' %}" class="btn btn-link text-danger"><b>X</b></a>
