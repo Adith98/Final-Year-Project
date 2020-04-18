@@ -42,6 +42,7 @@ class ScrapeView(generic.TemplateView):
             return render(request, self.template_name, args)
 
 
+
 def save_link_to_database(request):
     if request.method == 'POST':
         url = request.POST.get('link')
