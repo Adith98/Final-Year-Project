@@ -1,16 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views import generic
+
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+
 from celery.result import AsyncResult
 import json
 
 from .forms import GetLink
 from .models import Link
 from .webscraping import WebScraping as ws
-from .tasks import sleepy, do_work
+from .pura_working import Analyze, SabKaMishran
+
+from .backend import Progress
 
 
-# Create your views here.
 class IndexView(generic.TemplateView):
     template_name = "my_app/index.html"
 
@@ -43,18 +48,23 @@ class ScrapeView(generic.TemplateView):
     def get(self, request):
         if request.method == 'GET':
             if 'url' in request.session:
-                if 'path' in request.session:
-                    args = {'url': request.session['url'], 'name_of_product': request.session['name_of_product']}
-                    return render(request, self.template_name, args)
-                else:
-                    path = ws().extract_reviews_from_url.delay(request.session['url'],
-                                                               request.session['name_of_product'])
-
+                if not Link.objects.filter(product_name=request.session['name_of_product']):
                     entry = Link(url=request.session['url'],
                                  product_name=request.session['name_of_product'],
                                  review=request.session['review'],
                                  rating=request.session['rating'])
                     entry.save()
+                val = Link.objects.filter(product_name=request.session['name_of_product'])
+                if str(val.values_list('path')[0][0]) != "":
+                    value = SabKaMishran().count_value(str(val.values_list('path')[0][0]))
+                    args = {'url': request.session['url'], 'name_of_product': request.session['name_of_product'],
+                            'value': value,'rating':request.session['rating']}
+                    return render(request, self.template_name, args)
+                else:
+
+                    path = Analyze().analyze_the_product.delay(request.session['url'],
+                                                               request.session['name_of_product'])
+
                     args = {'url': request.session['url'], 'name_of_product': request.session['name_of_product'],
                             'task_id': path.task_id}
                     return render(request, self.template_name, args)
@@ -62,6 +72,6 @@ class ScrapeView(generic.TemplateView):
                 return redirect('my_app:index')
 
 
-def index(request):
-    result = do_work.delay()
-    return render(request, 'my_app/progress.html', context={'task_id': result.task_id})
+def get_progress(request, task_id):
+    progress = Progress(task_id)
+    return HttpResponse(json.dumps(progress.get_info()), content_type='application/json')

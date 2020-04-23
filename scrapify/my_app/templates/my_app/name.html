@@ -3,24 +3,190 @@
 {% block title %}Scrape Reviews{% endblock %}
 
 {% block content %}
-    <div class="container pt-3">
 
-        <h3>Scraping of Reviews is done for :</h3>
-        <h6><code>{{ url }}</code></h6>
-        <h6>{{ name_of_product }}</h6>
-        <a href="#" class="btn btn-large btn-primary">Authenticate the product</a>
 
-        <div class='progress-wrapper'>
-            <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+    {% if value %}
+        <div class="content-body pt-3 pb-3">
+            <div class="container">
+                <div class="introduction content-body-light-blue mb-3 p-lg-4 p-2">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="scrapify mb-4">
+                                <div class="h4">{{ name_of_product }}</div>
+                            </div>
+
+                            <div class="border border-success bg-success-transparent text-success m-2 p-2 rounded">
+                                <div class="p nunito">Total number of reviews analyzed :
+                                    <div class="d-inline h6"><span
+                                            class="badge badge-success">{{ value.length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-info bg-info-transparent text-info m-2 p-2 rounded">
+                                <div class="p nunito">Total positive reviews :
+                                    <div class="d-inline h6"><span
+                                            class="badge badge-info">{{ value.length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-info bg-info-transparent text-info m-2 p-2 rounded">
+                                <div class="p nunito">Total negative reviews :
+                                    <div class="d-inline h6"><span
+                                            class="badge badge-info">{{ value.length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-danger bg-danger-transparent text-danger m-2 p-2 rounded">
+                                <div class="p nunito">Number of Spams Removed :
+                                    <div class="d-inline h6"><span
+                                            class="badge badge-info">Beta</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 m-lg-auto  mt-2">
+                            <div class="">
+                                <div class="container">
+                                    <h5 class="display-5 scrapify">Scrapify Score:</h5>
+                                    <h1>
+                                        {{ value.average }}
+                                    </h1>
+                                    <hr class="my-4">
+                                    <p class="text-right"><b>Website's Rating : {{ rating }}</b></p>
+                                    <p class="text-right"><a class="search-work-link" href="#" ><b>Buy the product</b></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="introduction content-body-light-blue mb-3 p-lg-4 p-2">
+                    <div class="h5 scrapify">Reviews that speak about this Product's Different
+                        Features :
+                    </div>
+                    <ul>
+                        {% for i,item in value.count.items %}
+                            <div class="hvr-bubble-float-left">
+                                {% if item.0 is not 0 %}
+                                    <div class="h5">{{ i|title }}</div>
+                                    <div class="row">
+                                        <div class="col-lg-auto h6 nunito">Number of Reviews : {{ item.0 }}</div>
+                                        <div class="col-lg-auto h6 nunito">Average rating
+                                            : {{ item.2|floatformat }}</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+
+                <div class="container ">
+
+                </div>
+                <div class="container ">
+                    <h2>Reasons not to Buy this Product : </h2>
+                    <ul>
+                        <ol class="hvr-bubble-float-left ">
+                            <h4>Speakers</h4>
+                        </ol>
+                        <ol class="hvr-bubble-float-left ">
+                            <h4>Display</h4>
+                        </ol>
+                        <ol class="hvr-bubble-float-left ">
+                            <h4>Battery</h4>
+                        </ol>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 ">
+                    <h1>Rating Pic</h1>
+                </div>
+            </div>
+
+            <div id="how-does-it-work " class="procedure content-body-light-blue mb-3 p-4 ">
+                <div class="container ">
+                    <div class="scrapify h3 mt-lg-4 mt-3 text-center ">Most Popular Reviews</div>
+                    <div class="container ">
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th scope="col ">#</th>
+                                <th scope="col ">Positive</th>
+                                <th scope="col ">Negative</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row ">1</th>
+                                <td>Most amazing product</td>
+                                <td>It has a very bad battery life</td>
+                            </tr>
+                            <tr>
+                                <th scope="row ">2</th>
+                                <td>Most amazing product</td>
+                                <td>It has a very bad battery life</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class=" p-0 ml-auto text-right ">
+                <button class="btn nav-link search-work-link text-bold "
+                        onclick="smoothScroll(document.getElementById( 'how-does-it-work')) ">Analyze new
+                    products
+                    &rArr;
+                </button>
+                <button class="btn nav-link search-work-link text-bold pt-0 "
+                        onclick="smoothScroll(document.getElementById( 'how-does-it-work')) ">Check similar
+                    products
+                    &rArr;
+                </button>
+            </div>
+
         </div>
-        <div id="progress-bar-message">Waiting for progress to start...</div>
-        <div id="celery-result"></div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
-            CeleryProgressBar.initProgressBar(progressUrl);
-        });
-    </script>
+        </div>
 
+        </div>
+    {% endif %}
+
+    {% if task_id %}
+        <div id="pop-up-window" class="scraping-window d-flex align-items-center">
+            <div class="url-information-window w-75">
+                <div class="card-header">
+                    <b>Product Analysis</b>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-muted">Entered Url</p>
+                    <p class="card-text mt-2 mb-3">{{ url }}</p>
+                    <hr>
+                    <p class="card-text text-muted">Product Name</p>
+                    <p class="card-text mt-2 mb-3">{{ name_of_product }}</p>
+                    <hr>
+
+                    <div class="progress">
+                        <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;"
+                             aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100">0
+                        </div>
+                    </div>
+                    <div id="progress-bar-message" class="h6 text-muted mt-3">Waiting for progress to start...</div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var progressUrl = "{% url 'my_app:task_status' task_id %}";
+
+                CeleryProgressBar.initProgressBar(progressUrl);
+            });
+        </script>
+    {% endif %}
 {% endblock %}

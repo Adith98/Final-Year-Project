@@ -1,23 +1,22 @@
 import datetime
 
-import pandas as pd
 import os
 from pandas import DataFrame
 import urllib.parse as urlparse
 from urllib.request import urlopen as uReq
 import requests
 from bs4 import BeautifulSoup as soup
-
 import time
 from celery import shared_task
-from celery_progress.backend import ProgressRecorder
-import csv
-import random
+
+from .preprocessing import clean_the_review
+from .backend import ProgressRecorder
+from .models import Link
 
 
 class WebScraping:
 
-    def get_info_url(self,url):
+    def get_info_url(self, url):
         url = url
         url = WebScraping().format_url(url)
         print(url)
@@ -85,6 +84,7 @@ class WebScraping:
     @shared_task(bind=True)
     def extract_reviews_from_url(self, url, product_name):
 
+        name_of_product = product_name
         product_info = {'Review_title': [], 'Review': [],
                         'Rating': []
                         }
@@ -121,23 +121,29 @@ class WebScraping:
                 for row in containers:
                     rating = row.find_all("div", {"class", "hGSR34"})[0].text
                     review = row.findAll("div", {"class", "_2t8wE0"})
+
                     if not review:
                         review_title = row.find_all("p", {"class", "_2xg6Ul"})[0].text
                         review = row.findAll("div", {"class", "qwjRop"})[0].text
+                        review = clean_the_review(review)
 
                         product_info["Review_title"].append(review_title)
                         product_info["Review"].append(review.rstrip('READ MORE'))
                         product_info["Rating"].append(rating)
                     else:
                         review = review[0].text
+                        review = clean_the_review(review)
+
                         product_info["Review_title"].append(" ")
                         product_info["Review"].append(review.rstrip('READ MORE'))
                         product_info["Rating"].append(rating)
 
-                progress_recorder.set_progress(i, pno)
+                progress_recorder.set_progress(i, pno, "Ye vaaala")
 
             df = DataFrame(product_info, columns=['Review_title', 'Review', 'Rating'])
             df.to_excel(
                 r'C:\Users\shetty\Desktop\adith\Practice\Django\scrapify\my_app\static\my_app\product_reviews\R_' + product_name + '.xlsx',
                 index=None, header=True)
-            return path1
+            l = Link.objects.filter(product_name=name_of_product)
+            l.update(path=path1)
+            return True

@@ -1,7 +1,15 @@
 var CeleryProgressBar = (function () {
     function onSuccessDefault(progressBarElement, progressBarMessageElement) {
         progressBarElement.style.backgroundColor = '#76ce60';
-        progressBarMessageElement.innerHTML = "Success!";
+        var sucessbutton =
+            "<div class='h6 text-muted mt-3'>" +
+            "<span class='d-inline align-center'>Analysis Completed:</span> " +
+            "<a href='/my_app/scrape' class='analysis-work-link text-bold text-success col-lg-5'> " +
+            "View the Analysis" +
+            "</a>" +
+            "</div>"
+
+        progressBarMessageElement.innerHTML = sucessbutton;
     }
 
     function onResultDefault(resultElement, result) {
@@ -18,11 +26,12 @@ var CeleryProgressBar = (function () {
     function onProgressDefault(progressBarElement, progressBarMessageElement, progress) {
         progressBarElement.style.backgroundColor = '#68a9ef';
         progressBarElement.style.width = progress.percent + "%";
+        progressBarElement.innerHTML = progress.percent + "%";
         var description = progress.description || "";
-        progressBarMessageElement.innerHTML = progress.current + ' of ' + progress.total + ' processed. ' + description;
+        progressBarMessageElement.innerHTML = progress.current + ' hua ' + progress.total + ' itne main se ' + description;
     }
 
-    function updateProgress (progressUrl, options) {
+    function updateProgress(progressUrl, options) {
         options = options || {};
         var progressBarId = options.progressBarId || 'progress-bar';
         var progressBarMessage = options.progressBarMessageId || 'progress-bar-message';
@@ -37,8 +46,8 @@ var CeleryProgressBar = (function () {
         var onResult = options.onResult || onResultDefault;
 
 
-        fetch(progressUrl).then(function(response) {
-            response.json().then(function(data) {
+        fetch(progressUrl).then(function (response) {
+            response.json().then(function (data) {
                 if (data.progress) {
                     onProgress(progressBarElement, progressBarMessageElement, data.progress);
                 }
@@ -57,6 +66,7 @@ var CeleryProgressBar = (function () {
             });
         });
     }
+
     return {
         onSuccessDefault: onSuccessDefault,
         onResultDefault: onResultDefault,

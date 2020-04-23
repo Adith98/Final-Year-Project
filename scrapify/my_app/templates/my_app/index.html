@@ -1,44 +1,385 @@
 {% extends "my_app/base.html" %}
+{% load static %}
 
-{% block title %}My amazing blog{% endblock %}
-
-{% block content %}
-    <div class="container-fluid bg-success box-below-header text-center">
-        <div class="title-caption h3">Say no to getting fooled by fake reviews.</div>
-        <div class="enter-link-box-form col-lg-5">
-            <form method="post" novalidate>
-                {% csrf_token %}
-                <!--
-                    <div class="form-group">
-                        <input class="form-control" name="link" type="text" placeholder="Enter the product's link">
+{% block header_content %}
+    <div class="header-content mt-2 ml-lg-5 pl-lg-5 mr-lg-5 pr-lg-5 mt-lg-5 pb-4 text-center">
+        <div class="container">
+            <div class="left-box pt-5 pb-4 m-auto row">
+                <div class="col-lg-5 fake-review-box p-2 ml-lg-5">
+                    <img id="fake-review-image" class="img-fluid fake-review-image light-blue-box"
+                         src="{% static 'my_app/images/fake_review.png' %}">
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="h4 scrapify mb-3 mt-2 mt-lg-0 mb-lg-5 text-right">
+                        Say NO to getting fooled by fake reviews.
                     </div>
-                   -->
-                {{ form.non_field_errors }}
-                <div class="error pb-2">
-                    {% if form.link.errors %}
-                        {% for error in form.link.errors %}
-                            <div class="p text-bold">{{ error|escape }}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.link }}
+                    <div class="h6 pt-3 pt-lg-1 pb-lg-1 nunito text-secondary ml-auto text-right">
+                        <p>Scrapify makes sure your online shopping experience is non-deceptive and trustworthy.
+                        </p>
+                    </div>
+                    <button class='btn nav-link work-link pr-0'
+                            onclick="smoothScroll(document.getElementById('how-does-it-work'))">
+                        How Does it Work?
+                    </button>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="pb-3 w-75 ml-auto">
+                            {{ form.link }}
+                        </div>
+                        <div class="error ">
+                            {% if form.link.errors %}
+                                {% for error in form.link.errors %}
+                                    <div class="h6 text-bold nunito text-right">{{ error|escape }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" id="try-button"
+                                    class="btn try-button text-white light-blue-button">Scrapify
+                            </button>
+                        </div>
+
+
+                    </form>
+
                 </div>
 
-                <button type="submit" class="btn btn-primary">Scrapify It!</button>
-
-            </form>
-        </div>
-        <div class="title-lower-caption h5">Scrapify makes sure your online shopping experience is non-deceptive and
-            trustworthy.
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-body pt-3 pb-3">
+        <div class="container">
+            <div class="introduction content-body-light-blue mb-3 p-4">
+                <div class="container">
+                    <div class='row pt-3 pb-5'>
+                        <div class="col-lg-6 m-auto text-center text-lg-right p-2">
+                            <div class="scrapify title">
+                                <div class="h5 text-bold">Kuch Toh Catchy Sa!
+                                    <img class="icon d-inline-block align-center"
+                                         src="{% static 'my_app/images/search.png' %}">
+                                </div>
+                                <div class="h6 nunito text-secondary-body w-75 m-auto ml-lg-auto m-lg-0">
+                                    Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                    dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-2">
+                            <div class="analysis-art text-center">
+                                <img class="analysis-art-image" src="{% static 'my_app/images/fake_devices.png' %}">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row pt-lg-5 pt-3 pb-lg-5 pb-3'>
+                        <div class="col-lg-6">
+                            <div class="analysis-art text-center">
+                                <img class="analysis-art-image2" src="{% static 'my_app/images/whatitdoes.jpg' %}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 m-auto text-center text-lg-left p-2">
+                            <div class="scrapify title">
+                                <div class="h5 text-bold">Title for what does it do
+                                    <img class="icon d-inline-block align-center"
+                                         src="{% static 'my_app/images/list.png' %}">
+                                </div>
+                                <div class="h6 nunito text-secondary-body w-100">
+                                    Quisque quis urna dictum, pretium orci in, condimentum dolor. Nullam molestie odio
+                                    ac ipsum elementum, id fringilla tortor mollis. Vestibulum facilisis nibh eros,
+                                    faucibus consequat sapien pretium vitae.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="already-analyzed-products" class="content-body-light-blue mb-3 p-lg-5 p-1">
+                <div class="container">
+                    <div class="scrapify h4">Products Analyzed by other customers</div>
+                    <div class="product-slider container mt-2 mb-2 nunito">
+                        <div class="slider-product">
+                            <div class="container m-auto">
+                                <div class="card hvr-float-shadow bg-transparent">
+                                    <img class="card-img-top" src="{% static "my_app/images/iphone.png" %}"
+                                         alt="Card image cap"
+                                         style="background-color:#ffffff48;">
+                                    <div class="card-body">
+                                        <h5 class="scrapify h5 text-bold">Card title</h5>
+                                        <a href="#" class="btn btn-outline-dark">Reanalyze</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-product">
+                            <div class="container m-auto">
+                                <div class="card hvr-float-shadow bg-transparent">
+                                    <img class="card-img-top" src="{% static "my_app/images/iphone.png" %}"
+                                         alt="Card image cap"
+                                         style="background-color:#ffffff48;">
+                                    <div class="card-body">
+                                        <h5 class="scrapify h5 text-bold">Card title</h5>
+                                        <a href="#" class="btn btn-outline-dark">Reanalyze</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-product">
+                            <div class="container m-auto">
+                                <div class="card hvr-float-shadow bg-transparent">
+                                    <img class="card-img-top" src="{% static "my_app/images/iphone.png" %}"
+                                         alt="Card image cap"
+                                         style="background-color:#ffffff48;">
+                                    <div class="card-body">
+                                        <h5 class="scrapify h5 text-bold">Card title</h5>
+                                        <a href="#" class="btn btn-outline-dark">Reanalyze</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-product">
+                            <div class="container m-auto">
+                                <div class="card hvr-float-shadow bg-transparent">
+                                    <img class="card-img-top" src="{% static "my_app/images/iphone.png" %}"
+                                         alt="Card image cap"
+                                         style="background-color:#ffffff48;">
+                                    <div class="card-body">
+                                        <h5 class="scrapify h5 text-bold">Card title</h5>
+                                        <a href="#" class="btn btn-outline-dark">Reanalyze</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-product">
+                            <div class="container m-auto">
+                                <div class="card hvr-float-shadow bg-transparent">
+                                    <img class="card-img-top" src="{% static "my_app/images/iphone.png" %}"
+                                         alt="Card image cap"
+                                         style="background-color:#ffffff48;">
+                                    <div class="card-body">
+                                        <h5 class="scrapify h5 text-bold">Card title</h5>
+                                        <a href="#" class="btn btn-outline-dark">Reanalyze</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-product">
+                            <div class="container m-auto">
+                                <div class="card hvr-float-shadow bg-transparent">
+                                    <img class="card-img-top" src="{% static "my_app/images/iphone.png" %}"
+                                         alt="Card image cap"
+                                         style="background-color:#ffffff48;">
+                                    <div class="card-body">
+                                        <h5 class="scrapify h5 text-bold">Card title</h5>
+                                        <a href="#" class="btn btn-outline-dark">Reanalyze</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto p-0 ml-auto text-right">
+                        <button class="btn nav-link search-work-link text-bold "
+                                onclick="smoothScroll(document.getElementById('how-does-it-work'))">All the analyzed
+                            products
+                            &rArr;
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="how-does-it-work" class="procedure content-body-light-blue mb-3 p-4">
+            <div class="container">
+                <div class="scrapify h3 mt-lg-4 mt-3 text-center">Kaise Chalta Hain!</div>
+
+                <div class='row pt-3 pb-5'>
+                    <div class="col-lg-6 m-auto text-center text-lg-right p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Kuch Toh Catchy Sa!
+                                <img class="icon d-inline-block align-center"
+                                     src="{% static 'my_app/images/search.png' %}">
+                            </div>
+                            <div class="h6 nunito text-secondary-body w-75 m-auto ml-lg-auto m-lg-0">
+                                Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-2">
+                        <div class="analysis-art text-center">
+                            <img class="analysis-art-image" src="{% static 'my_app/images/fake_devices.png' %}">
+
+                        </div>
+                    </div>
+                </div>
+                <div class='row pt-lg-5 pt-3 pb-lg-5 pb-3'>
+                    <div class="col-lg-6">
+                        <div class="analysis-art text-center">
+                            <img class="analysis-art-image2" src="{% static 'my_app/images/fake_devices.png' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 m-auto text-center text-lg-left p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Title for what does it do
+                                <img class="icon d-inline-block align-center"
+                                     src="{% static 'my_app/images/list.png' %}">
+                            </div>
+                            <div class="h6 nunito text-secondary-body w-100">
+                                Quisque quis urna dictum, pretium orci in, condimentum dolor. Nullam molestie odio
+                                ac ipsum elementum, id fringilla tortor mollis. Vestibulum facilisis nibh eros,
+                                faucibus consequat sapien pretium vitae.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="how-does-it-work" class="procedure content-body-light-blue mb-3 p-4">
+            <div class="container">
+                <div class="scrapify h3 mt-lg-4 mt-3 text-center">Kaise Chalta Hain!</div>
+
+                <div class='row pt-3 pb-5'>
+                    <div class="col-lg-6 m-auto text-center text-lg-right p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Kuch Toh Catchy Sa!
+                                <img class="icon d-inline-block align-center"
+                                     src="{% static 'my_app/images/search.png' %}">
+                            </div>
+                            <div class="h6 nunito text-secondary-body w-75 m-auto ml-lg-auto m-lg-0">
+                                Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-2">
+                        <div class="analysis-art text-center">
+                            <img class="analysis-art-image" src="{% static 'my_app/images/fake_devices.png' %}">
+
+                        </div>
+                    </div>
+                </div>
+                <div class='row pt-lg-5 pt-3 pb-lg-5 pb-3'>
+                    <div class="col-lg-6">
+                        <div class="analysis-art text-center">
+                            <img class="analysis-art-image2" src="{% static 'my_app/images/fake_devices.png' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 m-auto text-center text-lg-left p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Title for what does it do
+                                <img class="icon d-inline-block align-center"
+                                     src="{% static 'my_app/images/list.png' %}">
+                            </div>
+                            <div class="h6 nunito text-secondary-body w-100">
+                                Quisque quis urna dictum, pretium orci in, condimentum dolor. Nullam molestie odio
+                                ac ipsum elementum, id fringilla tortor mollis. Vestibulum facilisis nibh eros,
+                                faucibus consequat sapien pretium vitae.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="how-does-it-work" class="procedure content-body-light-blue mb-3 p-4">
+            <div class="container">
+                <div class="scrapify h3 mt-lg-4 mt-3 text-center">Kaise Chalta Hain!</div>
+
+                <div class='row pt-3 pb-5'>
+                    <div class="col-lg-6 m-auto text-center text-lg-right p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Kuch Toh Catchy Sa!
+                                <img class="icon d-inline-block align-center"
+                                     src="{% static 'my_app/images/search.png' %}">
+                            </div>
+                            <div class="h6 nunito text-secondary-body w-75 m-auto ml-lg-auto m-lg-0">
+                                Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-2">
+                        <div class="analysis-art text-center">
+                            <img class="analysis-art-image" src="{% static 'my_app/images/fake_devices.png' %}">
+
+                        </div>
+                    </div>
+                </div>
+                <div class='row pt-lg-5 pt-3 pb-lg-5 pb-3'>
+                    <div class="col-lg-6">
+                        <div class="analysis-art text-center">
+                            <img class="analysis-art-image2" src="{% static 'my_app/images/whatitdoes.jpg' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 m-auto text-center text-lg-left p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Title for what does it do
+                                <img class="icon d-inline-block align-center"
+                                     src="{% static 'my_app/images/list.png' %}">
+                            </div>
+                            <div class="h6 nunito text-secondary-body w-100">
+                                Quisque quis urna dictum, pretium orci in, condimentum dolor. Nullam molestie odio
+                                ac ipsum elementum, id fringilla tortor mollis. Vestibulum facilisis nibh eros,
+                                faucibus consequat sapien pretium vitae.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="how-does-it-work" class="procedure content-body-light-blue mb-3 p-4">
+            <div class="container">
+                <div class="scrapify h3 mt-lg-4 mt-3 text-center">Get in Touch</div>
+
+                <div class='row pt-3 pb-5'>
+                    <div class="col-lg-4 m-auto text-center p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Monil Shah
+                            </div>
+                            <div class="h6 nunito text-secondary-body p-4 m-auto">
+                                Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 m-auto text-center  p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Monil Shah
+
+                            </div>
+                            <div class="h6 nunito text-secondary-body p-4 m-auto">
+                                Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 m-auto text-center  p-2">
+                        <div class="scrapify title">
+                            <div class="h5 text-bold">Monil Shah
+
+                            </div>
+                            <div class="h6 nunito text-secondary-body p-4 m-auto">
+                                Scrapify analyzes reviews to help you make better purchasing decisions. Lorem ipsum
+                                dolor sit amet, consectetur adipiscing elit. Sed quis ex nulla.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 
     {% if url_info %}
         <div id="pop-up-window" class="pop-up-url-window d-flex align-items-center">
             <div class="url-information-window w-75">
                 <div class="card-header">
-                    <b>Product Link Scraped Window</b>
+                    <b>Product Information</b>
                 </div>
                 <div class="card-body">
                     <p class="card-text text-muted">Entered Url</p>
@@ -46,22 +387,31 @@
                     <hr>
                     <p class="card-text text-muted">Additional Information</p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item transparent">Name of the product: <b>{{  url_info.name_of_product }}</b></li>
+                        <li class="list-group-item transparent">Name of the product:
+                            <b>{{ url_info.name_of_product }}</b></li>
                         <li class="list-group-item transparent">Total Reviews: <b>{{ url_info.review }} Reviews</b></li>
-                        <li class="list-group-item transparent">Overall Rating: <b>{{  url_info.rating }} out of 5</b></li>
+                        <li class="list-group-item transparent">Overall Rating: <b>{{ url_info.rating }} out of 5</b>
+                        </li>
                     </ul>
-                    <a href="{% url 'my_app:name' %}" class="btn btn-primary mt-2">Get me the Rating</a>
+
+                    <div class="h6 nunito row">
+                        <span class="col-lg mt-3 text-muted">Is this the product you're looking for?</span>
+                        <div class="col-lg btn-group mt-3 ml-lg-5">
+                            <a href="{% url 'my_app:name' %}"
+                               class="btn btn-sm search-work-link text-bold text-success col-lg-5 p-0 m-0 ml-lg-5">
+                                Start the analysis</a>
+                            <a href="{% url 'my_app:index' %}"
+                               class="btn btn-sm search-work-link text-bold text-danger col-lg-5 p-0 m-0 ml-lg-2">
+                                Re-enter the URL</a>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="close-btn">
-                    <a href = "{% url 'my_app:index' %}" class="btn btn-link text-danger"><b>X</b></a>
+                    <a href="{% url 'my_app:index' %}" class="btn btn-link text-danger"><b>X</b></a>
                 </div>
             </div>
         </div>
     {% endif %}
 
-
-    {% for link in links %}
-        <h5> {{ link.link }}</h5>
-        <p>{{ link.date }}</p>
-    {% endfor %}
 {% endblock %}

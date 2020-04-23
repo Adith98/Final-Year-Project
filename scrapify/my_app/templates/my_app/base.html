@@ -1,65 +1,118 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'my_app/images/favicon.ico' %}"/>
 
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'my_app/style.css' %}">
-
-    <link href="https://fonts.googleapis.com/css?family=Nunito|Nunito+Sans&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Bitter|Lato|Merriweather&display=swap" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
-    <title>{% block title %}My amazing site{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'my_app/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'my_app/css/style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'my_app/css/popup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'my_app/slick-1.8.1/slick-1.8.1/slick/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'my_app/slick-1.8.1/slick-1.8.1/slick/slick-theme.css' %}">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&family=Signika:wght@600&display=swap"
+          rel="stylesheet">
+
+
+    <title>{% block title %}Scrapify{% endblock %}</title>
 </head>
-<body onload="onLoadSubmit()">
-<div id="sidebar" >
 
-    {% block sidebar %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<body id="body" class="body light-blue">
+
+<script>
+    window.smoothScroll = function (target) {
+        var scrollContainer = target;
+        do { //find scroll container
+            scrollContainer = scrollContainer.parentNode;
+            if (!scrollContainer) return;
+            scrollContainer.scrollTop += 1;
+        } while (scrollContainer.scrollTop == 0);
+
+        var targetY = 0;
+        do { //find the top of target relatively to the container
+            if (target == scrollContainer) break;
+            targetY += target.offsetTop;
+        } while (target = target.offsetParent);
+
+        scroll = function (c, a, b, i) {
+            i++;
+            if (i > 20) return;
+            c.scrollTop = a + (b - a) / 20 * i;
+            setTimeout(function () {
+                scroll(c, a, b, i);
+            }, 10);
+        }
+        // start scrolling
+        scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+    }
+</script>
+
+<button class="btn change-theme btn-link" onclick="change_theme()"><img class='img-fluid'
+                                                                        src="{% static 'my_app/images/change_theme.png' %}">
+</button>
+
+<div class="header" id="header">
+    <div class="navigation-bar ml-0 ml-lg-5 pl-lg-5 mr-lg-5 pr-lg-5">
+        <nav class="navbar navbar-expand-lg mt-lg-0">
+            <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><img class="img-fluid"
+                                                       src="{% static 'my_app/images/icon.png' %}"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img src="data:image/png;base64,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"
-                     width="30" height="30"
-                     class="d-inline-block align-top" alt="">
-                <b>Scrapify</b>
+                <img src="{% static 'my_app/images/logo.png' %}" width="50" height="50"
+                     class="d-inline-block align-center" alt="">
+                <span class="scrapify text-bold h4">Scrapify</span>
             </a>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item pl-3 pr-3">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item pl-3 pr-3">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item pl-3 pr-3">
-                        <a class="nav-link" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <nav class="nav justify-content-end">
-                    <li class="nav-item"><a class="nav-link" href="#">About us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact us</a></li>
-                </nav>
+            <div class="collapse navbar-collapse" style="width: fit-content;" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-lg-auto mr-lg-0 ml-4 mr-auto">
+                    <a class="nav-item nav-link scrapify link-nav" href="#">Home</a>
+                    <button class="btn nav-item nav-link ml-lg-4 scrapify link-nav"
+                            onclick="smoothScroll(document.getElementById('how-does-it-work'))">How Does it Work?
+                    </button>
+                    <a class="nav-item nav-link ml-lg-4 scrapify link-nav" href="#">Reviewed Products</a>
+                    <a class="nav-item nav-link ml-lg-4 scrapify link-nav" href="#">About Us</a>
+                </div>
             </div>
         </nav>
-    {% endblock %}
+    </div>
+    {% block header_content %}{% endblock %}
 </div>
+
 
 <div id="content">
     {% block content %}{% endblock %}
 </div>
 
+<div class="footer sticky-bottom">
+    Icons made by <a href="https://www.flaticon.com/authors/prosymbols" title="Prosymbols">Prosymbols</a> from <a
+        href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> Icons made by <a
+        href="https://www.flaticon.com/authors/srip"
+        title="srip">srip</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> Icons made
+    by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+        href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+</div>
+
+
+{# My JavaScript #}
+<script src="{% static 'my_app/js/change_theme.js' %}"></script>
+<script src="{% static 'my_app/js/base.js' %}"></script>
+<script src="{% static 'my_app/js/celery_progress.js' %}"></script>
+{% block javascript %}{% endblock %}
+{# jQuery first, then Popper.js, then Bootstrap JS #}
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -70,8 +123,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<script src="{% static 'my_app/js/base.js' %}"></script>
-<script src="{% static 'my_app/js/celery_progress.js' %}"></script>
-
+<script src="{% static 'my_app/slick-1.8.1/slick-1.8.1/slick/slick.min.js' %}"></script>
+<script src="{% static 'my_app/js/slider.js' %}"></script>
 </body>
+
 </html>

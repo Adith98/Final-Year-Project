@@ -2,6 +2,7 @@ import pandas as pd
 import spacy
 import demoji
 import pickle
+import nltk
 import time
 
 vectorizer = pickle.load(open('vectorizer_cellphone.sav', 'rb'))
@@ -17,13 +18,19 @@ features = {
     'performance': ['performance', 'slow', 'fast', 'speed', 'lag']
 }
 count = {
-    'cost': [0, 0, []],
-    'quality': [0, 0, []],
-    'battery': [0, 0, []],
-    'display': [0, 0, []],
-    'camera': [0, 0, []],
-    'design': [0, 0, []],
-    'performance': [0, 0, []]
+    'cost': [0, 0, [], 0],
+    'quality': [0, 0, [], 0],
+    'battery': [0, 0, [], 0],
+    'display': [0, 0, [], 0],
+    'camera': [0, 0, [], 0],
+    'design': [0, 0, [], 0],
+    'performance': [0, 0, [], 0]
+}
+
+product = {
+    'review': [],
+    'score': [],
+    'aspects': []
 }
 
 stop_words = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself",
@@ -36,37 +43,76 @@ stop_words = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you"
               "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again",
               "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each",
               "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than",
-              "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
+              "too", "very", "can", "will", "just", "don", "should", "now"]
 
 nlp = spacy.load("en_core_web_lg")
+tokenizer = nltk.RegexpTokenizer(r"\w+")
 
 
 def get_aspects(x):
-    doc = nlp(x)  ## Tokenize and extract grammatical components
-    doc = [i.text for i in doc if
-           i.text not in stop_words and i.pos_ == "NOUN"]  ## Remove common words and retain only nouns
-    doc = list(map(lambda i: i.lower(), doc))  ## Normalize text to lower case
-    doc = pd.Series(doc)
-    doc = doc.value_counts().head().index.tolist()  ## Get 5 most frequent nouns
+    doc = tokenizer.tokenize(x)
+    #doc = nlp(doc)
+
+    #print(doc)
+    doc = [i for i in doc if
+           i not in stop_words and i]  ## Remove common words and retain only nouns
+    #doc = list(map(lambda i: i.lower(), doc))  ## Normalize text to lower case
+    #doc = pd.Series(doc)
+    #doc = doc.value_counts().index.tolist()  ## Get 5 most frequent nouns
     return doc
 
 
-excel_name = "C:/Users/shetty/Desktop/adith/Practice/Django/scrapify/my_app/static/my_app/product_reviews/R_Samsung Galaxy 438356.xlsx"
-
+excel_name = "C:/Users/shetty/Desktop/adith/Practice/Django/scrapify/my_app/static/my_app/product_reviews/R_Infinix S5 Pro 300205.xlsx"
 df = pd.read_excel(excel_name)
-Review = df['Review'].tolist()
-
+#Review = df['Review'].to_list()
+'''
 for rev in Review:
     rev = demoji.replace(rev, "")
     aspects = get_aspects(rev)
+    print(aspects)
+
+    vector = vectorizer.transform([rev])
+    prediction_linear = classifier.predict(vector)
+    product['review'].append(rev)
+    product['score'].append(prediction_linear[0])
+    list1 = []
+
     for key in features.keys():
         if any(item in features[key] for item in aspects):
             count[key][0] += 1
-            count[key][2].append(rev)
+            count[key][3] += prediction_linear[0]
+            print(key)
+            list1.append(key)
+    product['aspects'].append(list1)
+
 
 for key in count:
-    vector = vectorizer.transform(count[key][2])
-    prediction_linear = classifier.predict(vector)
-    avg = sum(prediction_linear) / len(prediction_linear)
-    count[key][1] = avg
+    if count[key][0] is not 0:
+        avg = count[key][3] / count[key][0]
+        count[key][1] = avg
     print(str(key) + " : " + str(count[key][0]) + " : " + str(count[key][1]))
+
+'''
+Review = df['Review'].to_list()
+aspects_list = []
+for i in range(len(df['Review'].to_list())):
+    aspects = get_aspects(df["Review"][i])
+    list1 = []
+    for key in features.keys():
+        if any(item in features[key] for item in aspects):
+            count[key][0] += 1
+            count[key][1] += df['Score'][i]
+            list1.append(key)
+    aspects_list.append(list1)
+
+for key in count:
+    if count[key][0] is not 0:
+        avg = count[key][1] / count[key][0]
+        count[key][2] = avg
+
+
+
+
+print(count)
+
+

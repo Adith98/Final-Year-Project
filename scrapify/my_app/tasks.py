@@ -1,7 +1,6 @@
-from celery import shared_task, current_task
+from celery import shared_task
 from time import sleep
-import random
-from celery_progress.backend import ProgressRecorder
+from .backend import ProgressRecorder
 
 
 @shared_task
