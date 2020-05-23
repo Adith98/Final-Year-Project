@@ -128,9 +128,9 @@ class SabKaMishran:
     }
 
     vectorizer = pickle.load(
-        open('C:/Users/shetty/Desktop/adith/Practice/Django/scrapify/my_app/vectorizer_cellphone.sav', 'rb'))
+        open('D:/MyProjects/Final-Year-Project/scrapify/my_app/vectorizer_cellphone.sav', 'rb'))
     classifier = pickle.load(
-        open('C:/Users/shetty/Desktop/adith/Practice/Django/scrapify/my_app/classifier_cellphone.sav', 'rb'))
+        open('D:/MyProjects/Final-Year-Project/scrapify/my_app/classifier_cellphone.sav', 'rb'))
 
     # nlp = spacy.load("en_core_web_lg")
     tokenizer = nltk.RegexpTokenizer(r"\w+")
@@ -271,10 +271,10 @@ class Analyze:
             df = DataFrame(s.product, columns=['Review_title', 'Review', 'Score', 'Rating'])
 
             df.to_excel(
-                r'C:\Users\shetty\Desktop\adith\Practice\Django\scrapify\my_app\static\my_app\product_reviews\R_' + product_name + '.xlsx',
+                r'D:\MyProjects\Final-Year-Project\scrapify\my_app\static\my_app\product_reviews\R_' + product_name + '.xlsx',
                 index=None, header=True)
 
-            path_excel = 'C:/Users/shetty/Desktop/adith/Practice/Django/scrapify/my_app/static/my_app/product_reviews/R_' + product_name + '.xlsx'
+            path_excel = 'D:/MyProjects/Final-Year-Project/scrapify/my_app/static/my_app/product_reviews/R_' + product_name + '.xlsx'
 
             l = Link.objects.filter(product_name=name_of_product)
             l.update(path=path_excel)

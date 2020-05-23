@@ -58,7 +58,7 @@ class ScrapeView(generic.TemplateView):
                 if str(val.values_list('path')[0][0]) != "":
                     value = SabKaMishran().count_value(str(val.values_list('path')[0][0]))
                     args = {'url': request.session['url'], 'name_of_product': request.session['name_of_product'],
-                            'value': value,'rating':request.session['rating']}
+                            'value': value, 'rating': request.session['rating']}
                     return render(request, self.template_name, args)
                 else:
 

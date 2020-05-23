@@ -116,7 +116,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CELERY_BROKER_URL = 'redis://h:p0f2a8f72debf19882ff39d40de5ad76ed007f562031074c08d84a5a4f4b35db7@ec2-3-222-30-12.compute-1.amazonaws.com:26259'
+CELERY_BROKER_URL = 'redis://h:p0f2a8f72debf19882ff39d40de5ad76ed007f562031074c08d84a5a4f4b35db7@ec2-3-224-182-136.compute-1.amazonaws.com:22019'
 
 CELERY_RESULT_BACKEND = 'django-db'
 

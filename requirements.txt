@@ -20,7 +20,6 @@ demoji==0.1.5
 Django==3.0.5
 django-celery-results==1.2.1
 dnspython==1.16.0
-en-core-web-lg==2.2.5
 et-xmlfile==1.0.1
 eventlet==0.25.2
 Flask==1.1.1
