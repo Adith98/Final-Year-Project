@@ -6,7 +6,7 @@ import nltk
 
 excel_path = "sample.xlsx"
 df = pd.read_excel(excel_path)
-testData = pd.read_csv("Cell_Phones_and_Accessories_5.csv", nrows=200)
+testData = pd.read_csv("static/Cell_Phones_and_Accessories_5.csv", nrows=200)
 vectorizer = pickle.load(open('vectorizer_cellphone.sav', 'rb'))
 classifier = pickle.load(open('classifier_cellphone.sav', 'rb'))
 
@@ -48,6 +48,7 @@ print('pos: {0} , neg : {1} , neutral : {2}'.format(total_pos, total_neg, total_
 print("Prediction time: %fs" % (t2))
 report = classification_report(testData['overall'], prediction_linear, output_dict=True)
 
+print(report)
 print('1 ', report['1.0'], len([i for i in prediction_linear if i == 1.0]))
 print('2 ', report['2.0'], len([i for i in prediction_linear if i == 2.0]))
 print('3 ', report['3.0'], len([i for i in prediction_linear if i == 3.0]))
