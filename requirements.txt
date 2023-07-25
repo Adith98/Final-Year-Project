@@ -10,7 +10,7 @@ cachetools==4.0.0
 catalogue==1.0.0
 celery==4.4.2
 celery-progress==0.0.9
-certifi==2019.9.11
+certifi==2023.7.22
 cffi==1.14.0
 chardet==3.0.4
 Click==7.0
